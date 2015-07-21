@@ -19,7 +19,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "TQ\\Tests\\Ext\\Application": "tests/"
+            "TQ\\Ext\\Application\\Tests": "tests/"
         }
     },
     "require": {
