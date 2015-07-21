@@ -19,7 +19,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "TQ\\ExtJS\\Application\\Tests\\": "tests/"
+            "TQ\\ExtJS\\Application\\Tests\\": "tests/Tests/"
         }
     },
     "require": {
