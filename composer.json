@@ -14,12 +14,12 @@
     ],
     "autoload": {
         "psr-4": {
-            "TQ\\Ext\\Application": "src/"
+            "TQ\\Ext\\Application\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "TQ\\Ext\\Application\\Tests": "tests/"
+            "TQ\\Ext\\Application\\Tests\\": "tests/"
         }
     },
     "require": {
