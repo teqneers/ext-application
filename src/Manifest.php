@@ -3,16 +3,16 @@
  * teqneers/ext-application
  *
  * @category   TQ
- * @package    TQ\Ext\Application
+ * @package    TQ\ExtJS\Application
  * @copyright  Copyright (C) 2015 by TEQneers GmbH & Co. KG
  */
 
-namespace TQ\Ext\Application;
+namespace TQ\ExtJS\Application;
 
 /**
  * Class Manifest
  *
- * @package TQ\Ext\Application
+ * @package TQ\ExtJS\Application
  */
 class Manifest
 {

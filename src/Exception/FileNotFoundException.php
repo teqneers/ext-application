@@ -3,18 +3,18 @@
  * teqneers/ext-application
  *
  * @category   TQ
- * @package    TQ\Ext\Application
+ * @package    TQ\ExtJS\Application
  * @copyright  Copyright (C) 2015 by TEQneers GmbH & Co. KG
  */
 
-namespace TQ\Ext\Application\Exception;
+namespace TQ\ExtJS\Application\Exception;
 
 use Exception;
 
 /**
  * Class FileNotFoundException
  *
- * @package TQ\Ext\Application\Exception
+ * @package TQ\ExtJS\Application\Exception
  */
 class FileNotFoundException extends \RuntimeException
 {

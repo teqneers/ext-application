@@ -3,18 +3,18 @@
  * teqneers/ext-application
  *
  * @category   TQ
- * @package    TQ\Ext\Application
+ * @package    TQ\ExtJS\Application
  * @copyright  Copyright (C) 2015 by TEQneers GmbH & Co. KG
  */
 
-namespace TQ\Ext\Application;
+namespace TQ\ExtJS\Application;
 
-use TQ\Ext\Application\Exception\FileNotFoundException;
+use TQ\ExtJS\Application\Exception\FileNotFoundException;
 
 /**
  * Class Application
  *
- * @package TQ\Ext\Application
+ * @package TQ\ExtJS\Application
  */
 class Application
 {
