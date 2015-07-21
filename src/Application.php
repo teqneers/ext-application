@@ -18,7 +18,6 @@ use TQ\Ext\Application\Exception\FileNotFoundException;
  */
 class Application
 {
-
     /**
      * @var ApplicationConfiguration
      */
@@ -35,8 +34,6 @@ class Application
     protected $environment;
 
     /**
-     * Ext6Application constructor.
-     *
      * @param ApplicationConfiguration $configuration
      * @param ManifestLoader           $manifestLoader
      * @param string                   $environment
