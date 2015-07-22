@@ -27,6 +27,9 @@ class ManifestLoader
         $manifest = json_decode(file_get_contents($manifestFile->getPathname()), true);
 
         $mapPath = function ($p) use ($basePath) {
+            if (substr($p, 0, 1) === '/') {
+                return $p;
+            }
             return $basePath . '/' . $p;
         };
 

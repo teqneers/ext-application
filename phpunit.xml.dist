@@ -13,7 +13,7 @@
 >
     <testsuites>
         <testsuite name="TEQneers Ext JS Application Library">
-            <directory>./tests/Tests</directory>
+            <directory>./tests/</directory>
         </testsuite>
     </testsuites>
 
