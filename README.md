@@ -1,6 +1,8 @@
 # ext-application
 A base component to integrate Sencha Ext JS into a PHP application
 
+[![Build Status](https://travis-ci.org/teqneers/ext-application.svg?branch=master)](https://travis-ci.org/teqneers/ext-application)
+
 ## License
 
 The MIT License (MIT)
