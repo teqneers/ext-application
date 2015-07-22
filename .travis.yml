@@ -7,12 +7,13 @@ php:
 
 env:
   matrix:
-    - PREFER_LOWEST="--prefer-lowest"
-    - PREFER_LOWEST=""
+    - COMPOSER_PARAM="update --prefer-source --prefer-lowest"
+    - COMPOSER_PARAM="update --prefer-source"
+    - COMPOSER_PARAM="install --prefer-source"
 
 before_script:
     - composer selfupdate
-    - composer install --prefer-source $PREFER_LOWEST
+    - composer $COMPOSER_PARAM
 
 script:
     - phpunit
