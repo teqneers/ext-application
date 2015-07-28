@@ -4,7 +4,7 @@ A base component to integrate Sencha Ext JS into a PHP application
 [![Build Status](https://travis-ci.org/teqneers/ext-application.svg?branch=master)](https://travis-ci.org/teqneers/ext-application)
 [![Code Coverage](https://scrutinizer-ci.com/g/teqneers/ext-application/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/teqneers/ext-application/?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/teqneers/ext-application/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/teqneers/ext-application/?branch=master)
-[![Dependency Status](https://www.versioneye.com/user/projects/55b4baa2643533001a00065d/badge.svg?style=flat)](https://www.versioneye.com/user/projects/55b4baa2643533001a00065d)
+[![Dependency Status](https://www.versioneye.com/user/projects/55b4ba9e643533001c000582/badge.svg?style=flat)](https://www.versioneye.com/user/projects/55b4ba9e643533001c000582)
 
 ## License
 
