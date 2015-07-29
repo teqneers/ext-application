@@ -6,15 +6,15 @@
  * Time: 12:26
  */
 
-namespace TQ\ExtJS\Application\Tests;
+namespace TQ\ExtJS\Application\Tests\Configuration;
 
 
-use TQ\ExtJS\Application\ApplicationConfiguration;
+use TQ\ExtJS\Application\Configuration\ApplicationConfiguration;
 
 /**
  * Class ApplicationConfigurationTest
  *
- * @package TQ\ExtJS\Application\Tests
+ * @package TQ\ExtJS\Application\Tests\Configuration
  */
 class ApplicationConfigurationTest extends \PHPUnit_Framework_TestCase
 {

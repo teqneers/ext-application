@@ -9,9 +9,9 @@
 namespace TQ\ExtJS\Application\Tests;
 
 use TQ\ExtJS\Application\Application;
-use TQ\ExtJS\Application\ApplicationConfiguration;
-use TQ\ExtJS\Application\Manifest;
-use TQ\ExtJS\Application\ManifestLoader;
+use TQ\ExtJS\Application\Configuration\ApplicationConfiguration;
+use TQ\ExtJS\Application\Manifest\Manifest;
+use TQ\ExtJS\Application\Manifest\ManifestLoader;
 
 /**
  * Class ApplicationTest
@@ -38,26 +38,26 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
     public function testDevApplicationPath()
     {
         $app = $this->createDefaultApplication('dev');
-        $this->assertEquals(__DIR__ . '/__workspace/my-app', $app->getApplicationPath());
+        $this->assertEquals(__DIR__ . '/__files/workspace/my-app', $app->getApplicationPath());
     }
 
     public function testProdApplicationPath()
     {
         $app = $this->createDefaultApplication('prod');
-        $this->assertEquals(__DIR__ . '/__htdocs/MyApp', $app->getApplicationPath());
+        $this->assertEquals(__DIR__ . '/__files/htdocs/MyApp', $app->getApplicationPath());
     }
 
     public function testDevMicroLoaderFile()
     {
         $app = $this->createDefaultApplication('dev');
-        $this->assertEquals(__DIR__ . '/__workspace/my-app/bootstrap.js', $app->getMicroLoaderFile()
+        $this->assertEquals(__DIR__ . '/__files/workspace/my-app/bootstrap.js', $app->getMicroLoaderFile()
                                                                               ->getPathname());
     }
 
     public function testProdMicroLoaderFile()
     {
         $app = $this->createDefaultApplication('prod');
-        $this->assertEquals(__DIR__ . '/__htdocs/MyApp/bootstrap.js', $app->getMicroLoaderFile()
+        $this->assertEquals(__DIR__ . '/__files/htdocs/MyApp/bootstrap.js', $app->getMicroLoaderFile()
                                                                           ->getPathname());
     }
 
@@ -80,7 +80,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
             'dev'
         );
 
-        $this->assertInstanceOf('TQ\ExtJS\Application\Manifest', $app->getManifest('/path/to/app'));
+        $this->assertInstanceOf('TQ\ExtJS\Application\Manifest\Manifest', $app->getManifest('/path/to/app'));
     }
 
     public function testProdManifest()
@@ -102,7 +102,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
             'prod'
         );
 
-        $this->assertInstanceOf('TQ\ExtJS\Application\Manifest', $app->getManifest('/path/to/app'));
+        $this->assertInstanceOf('TQ\ExtJS\Application\Manifest\Manifest', $app->getManifest('/path/to/app'));
     }
 
     /**
@@ -123,7 +123,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
      */
     protected function createManifestLoaderMock()
     {
-        return $this->getMock('TQ\ExtJS\Application\ManifestLoader', array('loadManifest'));
+        return $this->getMock('TQ\ExtJS\Application\Manifest\ManifestLoader', array('loadManifest'));
     }
 
     /**
@@ -135,8 +135,8 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
             'my-app',
             'MyApp',
             '../workspace',
-            __DIR__ . '/__workspace',
-            __DIR__ . '/__htdocs',
+            __DIR__ . '/__files/workspace',
+            __DIR__ . '/__files/htdocs',
             'bootstrap.js',
             'manifest.json'
         );

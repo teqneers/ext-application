@@ -7,12 +7,12 @@
  * @copyright  Copyright (C) 2015 by TEQneers GmbH & Co. KG
  */
 
-namespace TQ\ExtJS\Application;
+namespace TQ\ExtJS\Application\Configuration;
 
 /**
  * Class ApplicationConfiguration
  *
- * @package TQ\ExtJS\Application
+ * @package TQ\ExtJS\Application\Configuration
  */
 class ApplicationConfiguration
 {

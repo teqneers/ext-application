@@ -9,7 +9,10 @@
 
 namespace TQ\ExtJS\Application;
 
+use TQ\ExtJS\Application\Configuration\ApplicationConfiguration;
 use TQ\ExtJS\Application\Exception\FileNotFoundException;
+use TQ\ExtJS\Application\Manifest\Manifest;
+use TQ\ExtJS\Application\Manifest\ManifestLoader;
 
 /**
  * Class Application

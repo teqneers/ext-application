@@ -7,12 +7,12 @@
  * @copyright  Copyright (C) 2015 by TEQneers GmbH & Co. KG
  */
 
-namespace TQ\ExtJS\Application;
+namespace TQ\ExtJS\Application\Manifest;
 
 /**
  * Class ManifestLoader
  *
- * @package TQ\ExtJS\Application
+ * @package TQ\ExtJS\Application\Manifest
  */
 class ManifestLoader
 {
