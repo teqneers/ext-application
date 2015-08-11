@@ -78,7 +78,7 @@ class ApplicationConfiguration
         $name,
         $developmentBase,
         $productionBase,
-        $developmentManifest = 'bootstrap.json',
+        $developmentManifest = 'manifest.json',
         $developmentMicroLoader = 'bootstrap.js',
         $productionManifest = 'bootstrap.json',
         $productionMicroLoader = 'bootstrap.js'
