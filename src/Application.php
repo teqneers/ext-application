@@ -92,7 +92,7 @@ class Application
      */
     protected function getFile($path)
     {
-        if (!file_exists($path) || !is_readable($path)) {
+        if (!$path || !file_exists($path) || !is_readable($path)) {
             throw new FileNotFoundException($path);
         }
         return new \SplFileInfo($path);
@@ -114,12 +114,21 @@ class Application
 
     /**
      * @param string|null $build
-     * @return \SplFileInfo|null
+     * @return \SplFileInfo
      */
     public function getAppCacheFile($build = null)
     {
+        return $this->getFile($this->configuration->getAppCachePath($build, $this->isDevelopment()));
+    }
+
+    /**
+     * @param string|null $build
+     * @return bool
+     */
+    public function hasAppCache($build = null)
+    {
         $appCache = $this->configuration->getAppCachePath($build, $this->isDevelopment());
-        return $appCache ? $this->getFile($appCache) : null;
+        return $appCache ? true : false;
     }
 
     /**

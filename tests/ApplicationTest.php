@@ -108,12 +108,19 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
     public function testDevAppCacheFile()
     {
         $app = $this->createDefaultApplication('dev');
+
+        $this->assertFalse($app->hasAppCache());
+
+        $this->setExpectedException('TQ\ExtJS\Application\Exception\FileNotFoundException', 'File "" not found');
         $this->assertNull($app->getAppCacheFile());
     }
 
     public function testProdAppCacheFile()
     {
         $app = $this->createDefaultApplication('prod');
+
+        $this->assertTrue($app->hasAppCache());
+
         $this->assertEquals(__DIR__ . '/__files/htdocs/MyApp/cache.appcache', $app->getAppCacheFile()
                                                                                   ->getPathname());
     }
