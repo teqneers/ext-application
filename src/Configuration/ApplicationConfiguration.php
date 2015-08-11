@@ -127,7 +127,7 @@ class ApplicationConfiguration
      * @param bool $development
      * @return string
      */
-    protected function getBaseUrl($development)
+    protected function getRootBaseUrl($development)
     {
         return $development ? $this->relativeWorkspaceUrl : $this->relativeWebUrl;
     }
@@ -136,7 +136,7 @@ class ApplicationConfiguration
      * @param bool $development
      * @return string
      */
-    protected function getBasePath($development)
+    protected function getRootBasePath($development)
     {
         return $development ? $this->workspacePath : $this->webPath;
     }
@@ -162,9 +162,19 @@ class ApplicationConfiguration
      * @param bool        $development
      * @return string
      */
+    public function getBasePath($name = null, $development = false)
+    {
+        return rtrim($this->getRootBasePath($development) . '/' . $this->getFromBuild($name, null, $development), '/');
+    }
+
+    /**
+     * @param string|null $name
+     * @param bool        $development
+     * @return string
+     */
     public function getRelativeBaseUrl($name = null, $development = false)
     {
-        return trim($this->getBaseUrl($development) . '/' . $this->getFromBuild($name, null, $development), '/');
+        return trim($this->getRootBaseUrl($development) . '/' . $this->getFromBuild($name, null, $development), '/');
     }
 
     /**
@@ -174,7 +184,7 @@ class ApplicationConfiguration
      */
     public function getManifestPath($name = null, $development = false)
     {
-        return $this->getBasePath($development) . '/' . $this->getFromBuild($name, 'manifest', $development);
+        return $this->getRootBasePath($development) . '/' . $this->getFromBuild($name, 'manifest', $development);
     }
 
     /**
@@ -184,6 +194,6 @@ class ApplicationConfiguration
      */
     public function getMicroLoaderPath($name = null, $development = false)
     {
-        return $this->getBasePath($development) . '/' . $this->getFromBuild($name, 'microLoader', $development);
+        return $this->getRootBasePath($development) . '/' . $this->getFromBuild($name, 'microLoader', $development);
     }
 }

@@ -63,6 +63,15 @@ class Application
      * @param string|null $build
      * @return \SplFileInfo
      */
+    public function getBasePath($build = null)
+    {
+        return $this->configuration->getBasePath($build, $this->isDevelopment());
+    }
+
+    /**
+     * @param string|null $build
+     * @return \SplFileInfo
+     */
     public function getMicroLoaderFile($build = null)
     {
         return $this->getFile($this->configuration->getMicroLoaderPath($build, $this->isDevelopment()));

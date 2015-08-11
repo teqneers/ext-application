@@ -18,6 +18,19 @@ use TQ\ExtJS\Application\Configuration\ApplicationConfiguration;
  */
 class ApplicationConfigurationTest extends \PHPUnit_Framework_TestCase
 {
+    public function testGetDevelopmentBasePath()
+    {
+        $config = $this->createDefaultConfiguration();
+
+        $this->assertEquals(__DIR__ . '/__files/workspace/my-app', $config->getBasePath(null, true));
+    }
+
+    public function testGetProductionBasePath()
+    {
+        $config = $this->createDefaultConfiguration();
+
+        $this->assertEquals(__DIR__ . '/__files/htdocs/MyApp', $config->getBasePath(null, false));
+    }
 
     public function testGetDevelopmentRelativeBaseUrl()
     {

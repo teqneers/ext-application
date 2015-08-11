@@ -35,6 +35,18 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($app->isDevelopment());
     }
 
+    public function testDevBasePath()
+    {
+        $app = $this->createDefaultApplication('dev');
+        $this->assertEquals(__DIR__ . '/__files/workspace/my-app', $app->getBasePath());
+    }
+
+    public function testProdBasePath()
+    {
+        $app = $this->createDefaultApplication('prod');
+        $this->assertEquals(__DIR__ . '/__files/htdocs/MyApp', $app->getBasePath());
+    }
+
     public function testDevMicroLoaderFile()
     {
         $app = $this->createDefaultApplication('dev');
