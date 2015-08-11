@@ -35,30 +35,18 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($app->isDevelopment());
     }
 
-    public function testDevApplicationPath()
-    {
-        $app = $this->createDefaultApplication('dev');
-        $this->assertEquals(__DIR__ . '/__files/workspace/my-app', $app->getApplicationPath());
-    }
-
-    public function testProdApplicationPath()
-    {
-        $app = $this->createDefaultApplication('prod');
-        $this->assertEquals(__DIR__ . '/__files/htdocs/MyApp', $app->getApplicationPath());
-    }
-
     public function testDevMicroLoaderFile()
     {
         $app = $this->createDefaultApplication('dev');
         $this->assertEquals(__DIR__ . '/__files/workspace/my-app/bootstrap.js', $app->getMicroLoaderFile()
-                                                                              ->getPathname());
+                                                                                    ->getPathname());
     }
 
     public function testProdMicroLoaderFile()
     {
         $app = $this->createDefaultApplication('prod');
         $this->assertEquals(__DIR__ . '/__files/htdocs/MyApp/bootstrap.js', $app->getMicroLoaderFile()
-                                                                          ->getPathname());
+                                                                                ->getPathname());
     }
 
     public function testDevManifest()
@@ -132,14 +120,22 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
     protected function createDefaultConfiguration()
     {
         $config = new ApplicationConfiguration(
+            __DIR__ . '/__files/workspace',
+            '../workspace',
+            __DIR__ . '/__files/htdocs',
+            '/'
+        );
+
+        $config->addBuild(
+            'desktop',
             'my-app',
             'MyApp',
-            '../workspace',
-            __DIR__ . '/__files/workspace',
-            __DIR__ . '/__files/htdocs',
+            'manifest.json',
             'bootstrap.js',
-            'manifest.json'
+            'manifest.json',
+            'bootstrap.js'
         );
+
         return $config;
     }
 }

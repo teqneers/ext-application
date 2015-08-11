@@ -19,32 +19,58 @@ use TQ\ExtJS\Application\Configuration\ApplicationConfiguration;
 class ApplicationConfigurationTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function testApplicationDevelopmentPath()
+    public function testGetDevelopmentRelativeBaseUrl()
     {
         $config = $this->createDefaultConfiguration();
 
-        $this->assertEquals(__DIR__ . '/___workspace/my-app', $config->getApplicationDevelopmentPath());
+        $this->assertEquals('../workspace/my-app', $config->getRelativeBaseUrl(null, true));
     }
 
-    public function testApplicationProductionPath()
+    public function testGetProductionRelativeBaseUrl()
     {
         $config = $this->createDefaultConfiguration();
 
-        $this->assertEquals(__DIR__ . '/__htdocs/MyApp', $config->getApplicationProductionPath());
+        $this->assertEquals('MyApp', $config->getRelativeBaseUrl(null, false));
     }
 
-    public function testApplicationDevelopmentUrl()
+    public function testGetDevelopmentManifestPath()
     {
         $config = $this->createDefaultConfiguration();
 
-        $this->assertEquals('../workspace/my-app', $config->getApplicationDevelopmentUrl());
+        $this->assertEquals(
+            __DIR__ . '/__files/workspace/my-app/manifest.json',
+            $config->getManifestPath(null, true)
+        );
     }
 
-    public function testApplicationProductionUrl()
+    public function testGetProductionManifestPath()
     {
         $config = $this->createDefaultConfiguration();
 
-        $this->assertEquals('MyApp', $config->getApplicationProductionUrl());
+        $this->assertEquals(
+            __DIR__ . '/__files/htdocs/MyApp/manifest.json',
+            $config->getManifestPath(null, false)
+        );
+    }
+
+    public function testGetDevelopmentMicroLoaderPath()
+    {
+        $config = $this->createDefaultConfiguration();
+
+        $this->assertEquals(
+            __DIR__ . '/__files/workspace/my-app/bootstrap.js',
+            $config->getMicroLoaderPath(null, true)
+        );
+    }
+
+    public function testGetProductionMicroLoaderPath()
+    {
+        $config = $this->createDefaultConfiguration();
+
+        $this->assertEquals(
+            __DIR__ . '/__files/htdocs/MyApp/bootstrap.js',
+            $config->getMicroLoaderPath(null, false)
+        );
     }
 
     /**
@@ -53,14 +79,111 @@ class ApplicationConfigurationTest extends \PHPUnit_Framework_TestCase
     protected function createDefaultConfiguration()
     {
         $config = new ApplicationConfiguration(
+            __DIR__ . '/__files/workspace',
+            '../workspace',
+            __DIR__ . '/__files/htdocs',
+            '/'
+        );
+
+        $config->addBuild(
+            'desktop',
             'my-app',
             'MyApp',
-            '../workspace',
-            __DIR__ . '/___workspace',
-            __DIR__ . '/__htdocs',
+            'manifest.json',
             'bootstrap.js',
-            'manifest.json'
+            'manifest.json',
+            'bootstrap.js'
         );
+
         return $config;
+    }
+
+    public function testGetMultipleBuildConfiguration()
+    {
+        $config = new ApplicationConfiguration(
+            __DIR__ . '/__files/workspace',
+            '../workspace',
+            __DIR__ . '/__files/htdocs',
+            '/'
+        );
+
+        $config->addBuild(
+            'desktop',
+            'my-app',
+            'desktop',
+            'desktop.json',
+            'bootstrap.js',
+            'manifest.json',
+            'bootstrap.js'
+        )
+               ->addBuild(
+                   'tablet',
+                   'my-app',
+                   'tablet',
+                   'tablet.json',
+                   'bootstrap.js',
+                   'manifest.json',
+                   'bootstrap.js'
+               );
+
+        $this->assertEquals('../workspace/my-app', $config->getRelativeBaseUrl('desktop', true));
+        $this->assertEquals(
+            __DIR__ . '/__files/workspace/my-app/desktop.json',
+            $config->getManifestPath('desktop', true)
+        );
+        $this->assertEquals(
+            __DIR__ . '/__files/workspace/my-app/bootstrap.js',
+            $config->getMicroLoaderPath('desktop', true)
+        );
+
+        $this->assertEquals('desktop', $config->getRelativeBaseUrl('desktop', false));
+        $this->assertEquals(
+            __DIR__ . '/__files/htdocs/desktop/manifest.json',
+            $config->getManifestPath('desktop', false)
+        );
+        $this->assertEquals(
+            __DIR__ . '/__files/htdocs/desktop/bootstrap.js',
+            $config->getMicroLoaderPath('desktop', false)
+        );
+
+        $this->assertEquals('../workspace/my-app', $config->getRelativeBaseUrl('tablet', true));
+        $this->assertEquals(
+            __DIR__ . '/__files/workspace/my-app/tablet.json',
+            $config->getManifestPath('tablet', true)
+        );
+        $this->assertEquals(
+            __DIR__ . '/__files/workspace/my-app/bootstrap.js',
+            $config->getMicroLoaderPath('tablet', true)
+        );
+
+        $this->assertEquals('tablet', $config->getRelativeBaseUrl('tablet', false));
+        $this->assertEquals(
+            __DIR__ . '/__files/htdocs/tablet/manifest.json',
+            $config->getManifestPath('tablet', false)
+        );
+        $this->assertEquals(
+            __DIR__ . '/__files/htdocs/tablet/bootstrap.js',
+            $config->getMicroLoaderPath('tablet', false)
+        );
+
+        $this->assertEquals('../workspace/my-app', $config->getRelativeBaseUrl(null, true));
+        $this->assertEquals(
+            __DIR__ . '/__files/workspace/my-app/desktop.json',
+            $config->getManifestPath(null, true)
+        );
+        $this->assertEquals(
+            __DIR__ . '/__files/workspace/my-app/bootstrap.js',
+            $config->getMicroLoaderPath(null, true)
+        );
+
+        $this->assertEquals('desktop', $config->getRelativeBaseUrl(null, false));
+        $this->assertEquals(
+            __DIR__ . '/__files/htdocs/desktop/manifest.json',
+            $config->getManifestPath(null, false)
+        );
+        $this->assertEquals(
+            __DIR__ . '/__files/htdocs/desktop/bootstrap.js',
+            $config->getMicroLoaderPath(null, false)
+        );
     }
 }

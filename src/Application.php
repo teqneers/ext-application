@@ -52,14 +52,6 @@ class Application
     }
 
     /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->configuration->getName();
-    }
-
-    /**
      * @return bool
      */
     public function isDevelopment()
@@ -68,40 +60,29 @@ class Application
     }
 
     /**
-     * @return string
+     * @param string|null $build
+     * @return \SplFileInfo
      */
-    public function getApplicationPath()
+    public function getMicroLoaderFile($build = null)
     {
-        if ($this->isDevelopment()) {
-            return $this->configuration->getApplicationDevelopmentPath();
-        } else {
-            return $this->configuration->getApplicationProductionPath();
-        }
+        return $this->getFile($this->configuration->getMicroLoaderPath($build, $this->isDevelopment()));
     }
 
     /**
+     * @param string|null $build
      * @return \SplFileInfo
      */
-    public function getMicroLoaderFile()
+    protected function getManifestFile($build = null)
     {
-        return $this->getApplicationFile($this->configuration->getBootstrapName());
-    }
-
-    /**
-     * @return \SplFileInfo
-     */
-    protected function getManifestFile()
-    {
-        return $this->getApplicationFile($this->configuration->getManifestName());
+        return $this->getFile($this->configuration->getManifestPath($build, $this->isDevelopment()));
     }
 
     /**
      * @param string $path
      * @return \SplFileInfo
      */
-    protected function getApplicationFile($path)
+    protected function getFile($path)
     {
-        $path = $this->getApplicationPath() . '/' . $path;
         if (!file_exists($path) || !is_readable($path)) {
             throw new FileNotFoundException($path);
         }
@@ -109,18 +90,16 @@ class Application
     }
 
     /**
-     * @param string $basePath
+     * @param string      $basePath
+     * @param string|null $build
      * @return Manifest
      */
-    public function getManifest($basePath)
+    public function getManifest($basePath, $build = null)
     {
-        $basePath = rtrim($basePath, '/');
-        if ($this->isDevelopment()) {
-            $basePath .= '/' . $this->configuration->getApplicationDevelopmentUrl();
-        } else {
-            $basePath .= '/' . $this->configuration->getApplicationProductionUrl();
-        }
-
-        return $this->manifestLoader->loadManifest($basePath, $this->getManifestFile(), $this->isDevelopment());
+        return $this->manifestLoader->loadManifest(
+            rtrim($basePath, '/') . '/' . $this->configuration->getRelativeBaseUrl($build, $this->isDevelopment()),
+            $this->getManifestFile($build),
+            $this->isDevelopment()
+        );
     }
 }
