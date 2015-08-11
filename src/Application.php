@@ -111,4 +111,12 @@ class Application
             $this->isDevelopment()
         );
     }
+
+    /**
+     * @return string|null
+     */
+    public function getDefaultBuild()
+    {
+        return $this->configuration->getDefaultBuild();
+    }
 }

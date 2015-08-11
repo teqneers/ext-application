@@ -120,6 +120,8 @@ class ApplicationConfigurationTest extends \PHPUnit_Framework_TestCase
             '/'
         );
 
+        $this->assertNull($config->getDefaultBuild());
+
         $config->addBuild(
             'desktop',
             'my-app',
@@ -138,6 +140,8 @@ class ApplicationConfigurationTest extends \PHPUnit_Framework_TestCase
                    'manifest.json',
                    'bootstrap.js'
                );
+
+        $this->assertEquals('desktop', $config->getDefaultBuild());
 
         $this->assertEquals('../workspace/my-app', $config->getRelativeBaseUrl('desktop', true));
         $this->assertEquals(

@@ -196,4 +196,12 @@ class ApplicationConfiguration
     {
         return $this->getRootBasePath($development) . '/' . $this->getFromBuild($name, 'microLoader', $development);
     }
+
+    /**
+     * @return string|null
+     */
+    public function getDefaultBuild()
+    {
+        return $this->defaultBuild;
+    }
 }
