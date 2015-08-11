@@ -80,7 +80,7 @@ class ApplicationConfiguration
         $productionBase,
         $developmentManifest = 'bootstrap.json',
         $developmentMicroLoader = 'bootstrap.js',
-        $productionManifest = 'app.json',
+        $productionManifest = 'bootstrap.json',
         $productionMicroLoader = 'bootstrap.js'
     ) {
         $this->builds[$name] = [
