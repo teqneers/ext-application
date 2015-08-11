@@ -65,13 +65,15 @@ class ApplicationConfiguration
     }
 
     /**
-     * @param string $name
-     * @param string $developmentBase
-     * @param string $productionBase
-     * @param string $developmentManifest
-     * @param string $developmentMicroLoader
-     * @param string $productionManifest
-     * @param string $productionMicroLoader
+     * @param string      $name
+     * @param string      $developmentBase
+     * @param string      $productionBase
+     * @param string      $developmentManifest
+     * @param string      $developmentMicroLoader
+     * @param string|null $developmentAppCache
+     * @param string      $productionManifest
+     * @param string      $productionMicroLoader
+     * @param string|null $productionAppCache
      * @return $this
      */
     public function addBuild(
@@ -80,19 +82,23 @@ class ApplicationConfiguration
         $productionBase,
         $developmentManifest = 'manifest.json',
         $developmentMicroLoader = 'bootstrap.js',
+        $developmentAppCache = null,
         $productionManifest = 'bootstrap.json',
-        $productionMicroLoader = 'bootstrap.js'
+        $productionMicroLoader = 'bootstrap.js',
+        $productionAppCache = 'cache.appcache'
     ) {
         $this->builds[$name] = [
             'production'  => [
                 'base'        => trim($productionBase, '/'),
                 'manifest'    => $productionManifest,
-                'microLoader' => $productionMicroLoader
+                'microLoader' => $productionMicroLoader,
+                'appCache'    => $productionAppCache
             ],
             'development' => [
                 'base'        => trim($developmentBase, '/'),
                 'manifest'    => $developmentManifest,
-                'microLoader' => $developmentMicroLoader
+                'microLoader' => $developmentMicroLoader,
+                'appCache'    => $developmentAppCache
             ]
         ];
         if ($this->defaultBuild === null) {
@@ -145,15 +151,17 @@ class ApplicationConfiguration
      * @param string|null $name
      * @param string|null $key
      * @param bool        $development
-     * @return string
+     * @return string|null
      */
     protected function getFromBuild($name, $key, $development)
     {
         $build = $this->getBuild($name, $development);
         if ($key === null) {
             return $build['base'];
-        } else {
+        } elseif (isset($build[$key])) {
             return $build['base'] . '/' . $build[$key];
+        } else {
+            return null;
         }
     }
 
@@ -195,6 +203,17 @@ class ApplicationConfiguration
     public function getMicroLoaderPath($name = null, $development = false)
     {
         return $this->getRootBasePath($development) . '/' . $this->getFromBuild($name, 'microLoader', $development);
+    }
+
+    /**
+     * @param string|null $name
+     * @param bool        $development
+     * @return string|null
+     */
+    public function getAppCachePath($name = null, $development = false)
+    {
+        $appCachePath = $this->getFromBuild($name, 'appCache', $development);
+        return $appCachePath ? $this->getRootBasePath($development) . '/' . $appCachePath : null;
     }
 
     /**

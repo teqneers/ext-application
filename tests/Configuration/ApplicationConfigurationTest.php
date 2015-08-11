@@ -86,6 +86,25 @@ class ApplicationConfigurationTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testGetDevelopmentAppCachePath()
+    {
+        $config = $this->createDefaultConfiguration();
+
+        $this->assertNull(
+            $config->getAppCachePath(null, true)
+        );
+    }
+
+    public function testGetProductionAppCachePath()
+    {
+        $config = $this->createDefaultConfiguration();
+
+        $this->assertEquals(
+            __DIR__ . '/__files/htdocs/MyApp/cache.appcache',
+            $config->getAppCachePath(null, false)
+        );
+    }
+
     /**
      * @return ApplicationConfiguration
      */
@@ -104,8 +123,10 @@ class ApplicationConfigurationTest extends \PHPUnit_Framework_TestCase
             'MyApp',
             'manifest.json',
             'bootstrap.js',
+            null,
             'manifest.json',
-            'bootstrap.js'
+            'bootstrap.js',
+            'cache.appcache'
         );
 
         return $config;
@@ -125,11 +146,24 @@ class ApplicationConfigurationTest extends \PHPUnit_Framework_TestCase
         $config->addBuild(
             'desktop',
             'my-app',
+            'MyApp',
+            'manifest.json',
+            'bootstrap.js',
+
+            'manifest.json',
+            'bootstrap.js'
+        );
+
+        $config->addBuild(
+            'desktop',
+            'my-app',
             'desktop',
             'desktop.json',
             'bootstrap.js',
+            null,
             'manifest.json',
-            'bootstrap.js'
+            'bootstrap.js',
+            'cache.appcache'
         )
                ->addBuild(
                    'tablet',
@@ -137,8 +171,10 @@ class ApplicationConfigurationTest extends \PHPUnit_Framework_TestCase
                    'tablet',
                    'tablet.json',
                    'bootstrap.js',
+                   null,
                    'manifest.json',
-                   'bootstrap.js'
+                   'bootstrap.js',
+                   'cache.appcache'
                );
 
         $this->assertEquals('desktop', $config->getDefaultBuild());

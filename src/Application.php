@@ -113,6 +113,16 @@ class Application
     }
 
     /**
+     * @param string|null $build
+     * @return \SplFileInfo|null
+     */
+    public function getAppCacheFile($build = null)
+    {
+        $appCache = $this->configuration->getAppCachePath($build, $this->isDevelopment());
+        return $appCache ? $this->getFile($appCache) : null;
+    }
+
+    /**
      * @return string|null
      */
     public function getDefaultBuild()

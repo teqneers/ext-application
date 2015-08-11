@@ -105,6 +105,19 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('TQ\ExtJS\Application\Manifest\Manifest', $app->getManifest('/path/to/app'));
     }
 
+    public function testDevAppCacheFile()
+    {
+        $app = $this->createDefaultApplication('dev');
+        $this->assertNull($app->getAppCacheFile());
+    }
+
+    public function testProdAppCacheFile()
+    {
+        $app = $this->createDefaultApplication('prod');
+        $this->assertEquals(__DIR__ . '/__files/htdocs/MyApp/cache.appcache', $app->getAppCacheFile()
+                                                                                  ->getPathname());
+    }
+
     /**
      * @param string $environment
      * @return Application
@@ -144,8 +157,10 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
             'MyApp',
             'manifest.json',
             'bootstrap.js',
+            null,
             'manifest.json',
-            'bootstrap.js'
+            'bootstrap.js',
+            'cache.appcache'
         );
 
         return $config;
