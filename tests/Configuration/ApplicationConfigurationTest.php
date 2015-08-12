@@ -149,7 +149,7 @@ class ApplicationConfigurationTest extends \PHPUnit_Framework_TestCase
             'MyApp',
             'manifest.json',
             'bootstrap.js',
-
+            null,
             'manifest.json',
             'bootstrap.js'
         );
