@@ -6,6 +6,8 @@ A base component to integrate Sencha Ext JS into a PHP application
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/teqneers/ext-application/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/teqneers/ext-application/?branch=master)
 [![Dependency Status](https://www.versioneye.com/user/projects/55b4ba9e643533001c000582/badge.svg?style=flat)](https://www.versioneye.com/user/projects/55b4ba9e643533001c000582)
 
+## Introduction
+
 This library provides a simple abstraction around the different requirements when running Sencha Ext JS 6
 (even though 5 should work as well) applications from a development and a production context using
 server generated pages. Development and production builds use different source trees to serve application
@@ -18,6 +20,14 @@ a Symfony 2 bundle that integrates Ext JS into a Symfony 2 based application. We
 as a stand-alone component or in any other context than a Symfony 2 environment, so the following is only how it should
 work theoretically without the bundle. We'd appreciate any help and contribution to make the library more useful outside
 the bundle.
+
+## Installation
+
+You can install this library using composer
+
+    composer require teqneers/ext-application
+
+or add the package to your composer.json file directly.
 
 ## Example
 
