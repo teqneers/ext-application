@@ -42,40 +42,42 @@ Given the following directory structure of a fictitious application
 
 you should configure your application (e.g. from index.php)
 
-    $config = \TQ\ExtJS\Application\Configuration\ApplicationConfiguration(
-        __DIR__ . '/../my-app',     // the absolute path to the Ext JS application workspace
-        '../my-app',                // the relative path from the public web-facing directory to the Ext JS application workspace
-        __DIR__,                    // the absolute path to the public web-facing directory
-        '/'                         // the relative path from the  public web-facing directory to the root directory used for production build artifacts (usually /)
-    );
+```php
+$config = \TQ\ExtJS\Application\Configuration\ApplicationConfiguration(
+    __DIR__ . '/../my-app',     // the absolute path to the Ext JS application workspace
+    '../my-app',                // the relative path from the public web-facing directory to the Ext JS application workspace
+    __DIR__,                    // the absolute path to the public web-facing directory
+    '/'                         // the relative path from the  public web-facing directory to the root directory used for production build artifacts (usually /)
+);
 
-    // add a default build
-    $config->addBuild(
-        'default',          // the build name (just for referencing the build)
-        '/',                // the application path relative to the Ext JS application workspace (usually / unless you have multiple applications and/or packages in a single workspace)
-        'app',              // the application path relative to the root directory used for production build artifacts
-        'manifest.json',    // the build manifest filename for development builds
-        'bootstrap.js',     // the micro-loader filename for development builds
-        null,               // the application cache manifest filename for development builds (usually NULL)
-        'bootstrap.json',   // the build manifest filename for production builds
-        'bootstrap.js',     // the micro-loader filename for production builds
-        'cache.appcache'    // the application cache manifest filename fro production builds
-    );
+// add a default build
+$config->addBuild(
+    'default',          // the build name (just for referencing the build)
+    '/',                // the application path relative to the Ext JS application workspace (usually / unless you have multiple applications and/or packages in a single workspace)
+    'app',              // the application path relative to the root directory used for production build artifacts
+    'manifest.json',    // the build manifest filename for development builds
+    'bootstrap.js',     // the micro-loader filename for development builds
+    null,               // the application cache manifest filename for development builds (usually NULL)
+    'bootstrap.json',   // the build manifest filename for production builds
+    'bootstrap.js',     // the micro-loader filename for production builds
+    'cache.appcache'    // the application cache manifest filename fro production builds
+);
 
-    $application = new \TQ\ExtJS\Application\Application(
-        $config,
-        new \TQ\ExtJS\Application\Manifest\ManifestLoader(),
-        'dev' // dev or prod depending on wether you want to run from development or drom production build
-    );
+$application = new \TQ\ExtJS\Application\Application(
+    $config,
+    new \TQ\ExtJS\Application\Manifest\ManifestLoader(),
+    'dev' // dev or prod depending on wether you want to run from development or drom production build
+);
 
-    $microLoader = $application->getMicroLoaderFile(); // returns a \SplFileInfo for the configured micro-loader
-    $hasAppCache = $application->hasAppCache();
-    if ($hasAppCache) {
-        $appCache = $application->getAppCacheFile(); // returns a \SplFileInfo for the configured application cache manifest
-    }
-    $manifest    = $application->getManifest('/htdocs'); // returns a \TQ\ExtJS\Application\Manifest\Manifest configured correctly when running document root on your application base path
+$microLoader = $application->getMicroLoaderFile(); // returns a \SplFileInfo for the configured micro-loader
+$hasAppCache = $application->hasAppCache();
+if ($hasAppCache) {
+    $appCache = $application->getAppCacheFile(); // returns a \SplFileInfo for the configured application cache manifest
+}
+$manifest    = $application->getManifest('/htdocs'); // returns a \TQ\ExtJS\Application\Manifest\Manifest configured correctly when running document root on your application base path
 
-    echo $manifest; // outputs the manifest
+echo $manifest; // outputs the manifest
+```
 
 When running the application in development mode, you have to make sure that your web server's document root is one level
 up from the (regular) public web-facing directory so that the web server can serve files from the Ext JS application
