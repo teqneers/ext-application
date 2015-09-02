@@ -22,6 +22,11 @@ class Manifest extends \SplFileInfo
     private $manifest;
 
     /**
+     * @var string
+     */
+    private $content;
+
+    /**
      * @param string $path
      * @param array  $manifest
      */
@@ -34,9 +39,20 @@ class Manifest extends \SplFileInfo
     /**
      * @return string
      */
+    public function computeETag()
+    {
+        return md5($this->getContent());
+    }
+
+    /**
+     * @return string
+     */
     public function getContent()
     {
-        return json_encode($this->manifest);
+        if (!$this->content) {
+            $this->content = json_encode($this->manifest);
+        }
+        return $this->content;
     }
 
     /**
