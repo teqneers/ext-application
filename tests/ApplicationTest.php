@@ -78,7 +78,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
                    $this->equalTo('desktop'),
                    $this->equalTo(true)
                )
-               ->willReturn(new Manifest(array()));
+               ->willReturn(new Manifest(__DIR__ . '/__files/workspace/my-app/bootstrap.json', array()));
 
         $app = new Application(
             $this->createDefaultConfiguration(),
@@ -100,7 +100,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
                    $this->equalTo('desktop'),
                    $this->equalTo(false)
                )
-               ->willReturn(new Manifest(array()));
+               ->willReturn(new Manifest(__DIR__ . '__files/workspace/build/production/MyApp/app.json', array()));
 
         $app = new Application(
             $this->createDefaultConfiguration(),

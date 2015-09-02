@@ -14,7 +14,7 @@ namespace TQ\ExtJS\Application\Manifest;
  *
  * @package TQ\ExtJS\Application\Manifest
  */
-class Manifest
+class Manifest extends \SplFileInfo
 {
     /**
      * @var array
@@ -22,11 +22,21 @@ class Manifest
     private $manifest;
 
     /**
-     * @param array $manifest
+     * @param string $path
+     * @param array  $manifest
      */
-    public function __construct(array $manifest)
+    public function __construct($path, array $manifest)
     {
+        parent::__construct($path);
         $this->manifest = $manifest;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContent()
+    {
+        return json_encode($this->manifest);
     }
 
     /**
@@ -36,6 +46,6 @@ class Manifest
      */
     public function __toString()
     {
-        return json_encode($this->manifest);
+        return $this->getContent();
     }
 }

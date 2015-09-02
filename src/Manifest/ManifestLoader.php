@@ -59,6 +59,6 @@ class ManifestLoader
             $manifest['loadOrder'] = array_map($mapArray, $manifest['loadOrder']);
         }
 
-        return new Manifest($manifest);
+        return new Manifest($manifestFile->getPathname(), $manifest);
     }
 }
