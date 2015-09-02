@@ -61,11 +61,11 @@ class Application
 
     /**
      * @param string|null $build
-     * @return \SplFileInfo
+     * @return string
      */
-    public function getBasePath($build = null)
+    public function getBuildPath($build = null)
     {
-        return $this->configuration->getBasePath($build, $this->isDevelopment());
+        return $this->configuration->getBuildPath($build, $this->isDevelopment());
     }
 
     /**
@@ -99,14 +99,14 @@ class Application
     }
 
     /**
-     * @param string      $basePath
+     * @param callable    $pathMapper
      * @param string|null $build
      * @return Manifest
      */
-    public function getManifest($basePath, $build = null)
+    public function getManifest(callable $pathMapper, $build = null)
     {
         return $this->manifestLoader->loadManifest(
-            rtrim($basePath, '/') . '/' . $this->configuration->getRelativeBaseUrl($build, $this->isDevelopment()),
+            $pathMapper,
             $this->getManifestFile($build),
             $this->isDevelopment()
         );
@@ -129,6 +129,16 @@ class Application
     {
         $appCache = $this->configuration->getAppCachePath($build, $this->isDevelopment());
         return $appCache ? true : false;
+    }
+
+    /**
+     * @param string      $path
+     * @param string|null $build
+     * @return \SplFileInfo
+     */
+    public function getBuildArtifact($path, $build = null)
+    {
+        return $this->getFile($this->configuration->getBuildArtifactPath($path, $build, $this->isDevelopment()));
     }
 
     /**

@@ -17,24 +17,17 @@ namespace TQ\ExtJS\Application\Manifest;
 class ManifestLoader
 {
     /**
-     * @param string       $basePath
+     * @param callable     $pathMapper
      * @param \SplFileInfo $manifestFile
      * @param bool         $development
      * @return Manifest
      */
-    public function loadManifest($basePath, \SplFileInfo $manifestFile, $development = false)
+    public function loadManifest(callable $pathMapper, \SplFileInfo $manifestFile, $development = false)
     {
         $manifest = json_decode(file_get_contents($manifestFile->getPathname()), true);
 
-        $mapPath = function ($p) use ($basePath) {
-            if (substr($p, 0, 1) === '/') {
-                return $p;
-            }
-            return $basePath . '/' . $p;
-        };
-
-        $mapArray = function (array $u) use ($mapPath) {
-            $u['path'] = $mapPath($u['path']);
+        $mapArray = function (array $u) use ($pathMapper) {
+            $u['path'] = $pathMapper($u['path']);
             return $u;
         };
 
@@ -42,7 +35,7 @@ class ManifestLoader
         $manifest['css'] = array_map($mapArray, $manifest['css']);
 
         if ($development && isset($manifest['paths'])) {
-            $manifest['paths'] = array_map($mapPath, $manifest['paths']);
+            $manifest['paths'] = array_map($pathMapper, $manifest['paths']);
         }
 
         if ($development && isset($manifest['loadOrder'])) {
