@@ -38,37 +38,45 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
     public function testDevBasePath()
     {
         $app = $this->createDefaultApplication('dev');
-        $this->assertEquals(__DIR__ . '/__files/workspace/my-app', $app->getBasePath());
+        $this->assertEquals(__DIR__ . '/__files/workspace/my-app/../build/development/MyApp', $app->getBuildPath());
     }
 
     public function testProdBasePath()
     {
         $app = $this->createDefaultApplication('prod');
-        $this->assertEquals(__DIR__ . '/__files/htdocs/MyApp', $app->getBasePath());
+        $this->assertEquals(__DIR__ . '/__files/workspace/my-app/../build/production/MyApp', $app->getBuildPath());
     }
 
     public function testDevMicroLoaderFile()
     {
         $app = $this->createDefaultApplication('dev');
-        $this->assertEquals(__DIR__ . '/__files/workspace/my-app/bootstrap.js', $app->getMicroLoaderFile()
-                                                                                    ->getPathname());
+        $this->assertEquals(
+            __DIR__ . '/__files/workspace/my-app/bootstrap.js',
+            $app->getMicroLoaderFile()
+                ->getPathname()
+        );
     }
 
     public function testProdMicroLoaderFile()
     {
         $app = $this->createDefaultApplication('prod');
-        $this->assertEquals(__DIR__ . '/__files/htdocs/MyApp/bootstrap.js', $app->getMicroLoaderFile()
-                                                                                ->getPathname());
+        $this->assertEquals(
+            __DIR__ . '/__files/workspace/my-app/../build/production/MyApp/microloader.js',
+            $app->getMicroLoaderFile()
+                ->getPathname()
+        );
     }
 
     public function testDevManifest()
     {
-        $loader = $this->createManifestLoaderMock();
+        $loader     = $this->createManifestLoaderMock();
+        $pathMapper = function () {
+        };
 
         $loader->expects($this->once())
                ->method('loadManifest')
                ->with(
-                   $this->equalTo('/path/to/app/../workspace/my-app'),
+                   $this->equalTo($pathMapper),
                    $this->isInstanceOf('SplFileInfo'),
                    $this->equalTo(true)
                )
@@ -80,17 +88,19 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
             'dev'
         );
 
-        $this->assertInstanceOf('TQ\ExtJS\Application\Manifest\Manifest', $app->getManifest('/path/to/app'));
+        $this->assertInstanceOf('TQ\ExtJS\Application\Manifest\Manifest', $app->getManifest($pathMapper));
     }
 
     public function testProdManifest()
     {
-        $loader = $this->createManifestLoaderMock();
+        $loader     = $this->createManifestLoaderMock();
+        $pathMapper = function () {
+        };
 
         $loader->expects($this->once())
                ->method('loadManifest')
                ->with(
-                   $this->equalTo('/path/to/app/MyApp'),
+                   $this->equalTo($pathMapper),
                    $this->isInstanceOf('SplFileInfo'),
                    $this->equalTo(false)
                )
@@ -102,7 +112,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
             'prod'
         );
 
-        $this->assertInstanceOf('TQ\ExtJS\Application\Manifest\Manifest', $app->getManifest('/path/to/app'));
+        $this->assertInstanceOf('TQ\ExtJS\Application\Manifest\Manifest', $app->getManifest($pathMapper));
     }
 
     public function testDevAppCacheFile()
@@ -121,8 +131,11 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($app->hasAppCache());
 
-        $this->assertEquals(__DIR__ . '/__files/htdocs/MyApp/cache.appcache', $app->getAppCacheFile()
-                                                                                  ->getPathname());
+        $this->assertEquals(
+            __DIR__ . '/__files/workspace/my-app/../build/production/MyApp/cache.appcache',
+            $app->getAppCacheFile()
+                ->getPathname()
+        );
     }
 
     /**
@@ -152,22 +165,23 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
     protected function createDefaultConfiguration()
     {
         $config = new ApplicationConfiguration(
-            __DIR__ . '/__files/workspace',
-            '../workspace',
-            __DIR__ . '/__files/htdocs',
-            '/'
+            __DIR__ . '/__files/workspace/my-app'
         );
 
         $config->addBuild(
             'desktop',
-            'my-app',
-            'MyApp',
-            'manifest.json',
-            'bootstrap.js',
-            null,
-            'manifest.json',
-            'bootstrap.js',
-            'cache.appcache'
+            [
+                'build_path'  => '../build/development/MyApp',
+                'microloader' => '/bootstrap.js',
+                'manifest'    => '/bootstrap.json',
+                'app_cache'   => null,
+            ],
+            [
+                'build_path'  => '../build/production/MyApp',
+                'microloader' => 'microloader.js',
+                'manifest'    => 'app.json',
+                'app_cache'   => 'cache.appcache',
+            ]
         );
 
         return $config;
