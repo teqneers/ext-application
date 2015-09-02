@@ -132,6 +132,20 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testGetApplicationIdInDevelopment()
+    {
+        $app = $this->createDefaultApplication('dev');
+
+        $this->assertEquals('7381d97d-f4e9-44ef-aa2e-097045dfb87a', $app->getApplicationId());
+    }
+
+    public function testGetApplicationIdInProduction()
+    {
+        $app = $this->createDefaultApplication('prod');
+
+        $this->assertEquals('7381d97d-f4e9-44ef-aa2e-097045dfb87a', $app->getApplicationId());
+    }
+
     /**
      * @param string $environment
      * @return Application

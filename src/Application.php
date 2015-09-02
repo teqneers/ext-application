@@ -37,6 +37,11 @@ class Application
     protected $environment;
 
     /**
+     * @var string
+     */
+    protected $applicationId;
+
+    /**
      * @param ApplicationConfiguration $configuration
      * @param ManifestLoader           $manifestLoader
      * @param string                   $environment
@@ -145,5 +150,22 @@ class Application
     public function getDefaultBuild()
     {
         return $this->configuration->getDefaultBuild();
+    }
+
+    /**
+     * @return string
+     */
+    public function getApplicationId()
+    {
+        if (!$this->applicationId) {
+            $manifestFile = $this->getManifestFile();
+            $manifest     = @json_decode(file_get_contents($manifestFile->getPathname()), true);
+            if (is_array($manifest) && isset($manifest['id'])) {
+                $this->applicationId = $manifest['id'];
+            } else {
+                throw new \BadMethodCallException('Cannot read application id from manifest at "' . $manifestFile->getPathname() . '"');
+            }
+        }
+        return $this->applicationId;
     }
 }
