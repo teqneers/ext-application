@@ -87,10 +87,13 @@ class ApplicationConfiguration
     /**
      * @param string $artifactPath
      * @param string $buildPath
-     * @return string
+     * @return string|null
      */
     private function resolveBuildArtifactPathConfig($artifactPath, $buildPath)
     {
+        if (empty($artifactPath)) {
+            return null;
+        }
         if (strpos($artifactPath, '/') === 0) {
             return $this->appPath . '/' . trim($artifactPath, '/');
         } else {
