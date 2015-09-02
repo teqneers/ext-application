@@ -69,14 +69,11 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
 
     public function testDevManifest()
     {
-        $loader     = $this->createManifestLoaderMock();
-        $pathMapper = function () {
-        };
+        $loader = $this->createManifestLoaderMock();
 
         $loader->expects($this->once())
                ->method('loadManifest')
                ->with(
-                   $this->equalTo($pathMapper),
                    $this->isInstanceOf('SplFileInfo'),
                    $this->equalTo(true)
                )
@@ -88,19 +85,16 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
             'dev'
         );
 
-        $this->assertInstanceOf('TQ\ExtJS\Application\Manifest\Manifest', $app->getManifest($pathMapper));
+        $this->assertInstanceOf('TQ\ExtJS\Application\Manifest\Manifest', $app->getManifest());
     }
 
     public function testProdManifest()
     {
-        $loader     = $this->createManifestLoaderMock();
-        $pathMapper = function () {
-        };
+        $loader = $this->createManifestLoaderMock();
 
         $loader->expects($this->once())
                ->method('loadManifest')
                ->with(
-                   $this->equalTo($pathMapper),
                    $this->isInstanceOf('SplFileInfo'),
                    $this->equalTo(false)
                )
@@ -112,7 +106,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
             'prod'
         );
 
-        $this->assertInstanceOf('TQ\ExtJS\Application\Manifest\Manifest', $app->getManifest($pathMapper));
+        $this->assertInstanceOf('TQ\ExtJS\Application\Manifest\Manifest', $app->getManifest());
     }
 
     public function testDevAppCacheFile()
@@ -156,7 +150,13 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
      */
     protected function createManifestLoaderMock()
     {
-        return $this->getMock('TQ\ExtJS\Application\Manifest\ManifestLoader', array('loadManifest'));
+        return $this->getMock(
+            'TQ\ExtJS\Application\Manifest\ManifestLoader',
+            array('loadManifest'),
+            array(),
+            '',
+            false
+        );
     }
 
     /**

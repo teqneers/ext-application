@@ -99,14 +99,12 @@ class Application
     }
 
     /**
-     * @param callable    $pathMapper
      * @param string|null $build
      * @return Manifest
      */
-    public function getManifest(callable $pathMapper, $build = null)
+    public function getManifest($build = null)
     {
         return $this->manifestLoader->loadManifest(
-            $pathMapper,
             $this->getManifestFile($build),
             $this->isDevelopment()
         );

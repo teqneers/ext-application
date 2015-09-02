@@ -9,6 +9,7 @@
 namespace TQ\ExtJS\Application\Tests\Manifest;
 
 use TQ\ExtJS\Application\Manifest\ManifestLoader;
+use TQ\ExtJS\Application\Manifest\StaticPathMapper;
 
 /**
  * Class ManifestLoaderTest
@@ -20,15 +21,8 @@ class ManifestLoaderTest extends \PHPUnit_Framework_TestCase
 
     public function testLoadDevelopmentManifest()
     {
-        $loader   = new ManifestLoader();
+        $loader   = new ManifestLoader(new StaticPathMapper('/path/to/app/'));
         $manifest = $loader->loadManifest(
-            function ($p) {
-                if (substr($p, 0, 1) === '/') {
-                    return $p;
-                }
-
-                return '/path/to/app/' . $p;
-            },
             new \SplFileInfo(__DIR__ . '/__files/manifest.dev.json'),
             true
         );
@@ -39,15 +33,8 @@ class ManifestLoaderTest extends \PHPUnit_Framework_TestCase
 
     public function testLoadProductionManifest()
     {
-        $loader   = new ManifestLoader();
+        $loader   = new ManifestLoader(new StaticPathMapper('/path/to/app/'));
         $manifest = $loader->loadManifest(
-            function ($p) {
-                if (substr($p, 0, 1) === '/') {
-                    return $p;
-                }
-
-                return '/path/to/app/' . $p;
-            },
             new \SplFileInfo(__DIR__ . '/__files/manifest.prod.json'),
             false
         );
