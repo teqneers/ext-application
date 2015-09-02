@@ -22,7 +22,13 @@ class ManifestLoaderTest extends \PHPUnit_Framework_TestCase
     {
         $loader   = new ManifestLoader();
         $manifest = $loader->loadManifest(
-            '/path/to/app',
+            function ($p) {
+                if (substr($p, 0, 1) === '/') {
+                    return $p;
+                }
+
+                return '/path/to/app/' . $p;
+            },
             new \SplFileInfo(__DIR__ . '/__files/manifest.dev.json'),
             true
         );
@@ -35,7 +41,13 @@ class ManifestLoaderTest extends \PHPUnit_Framework_TestCase
     {
         $loader   = new ManifestLoader();
         $manifest = $loader->loadManifest(
-            '/path/to/app',
+            function ($p) {
+                if (substr($p, 0, 1) === '/') {
+                    return $p;
+                }
+
+                return '/path/to/app/' . $p;
+            },
             new \SplFileInfo(__DIR__ . '/__files/manifest.prod.json'),
             false
         );
