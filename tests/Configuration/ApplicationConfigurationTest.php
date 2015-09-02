@@ -92,6 +92,96 @@ class ApplicationConfigurationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @dataProvider developmentBuildArtifactPathProvider
+     * @param string $path
+     * @param string $expected
+     */
+    public function testGetDevelopmentBuildArtifactPath($path, $expected)
+    {
+        $config = $this->createDefaultConfiguration();
+
+        $this->assertEquals($expected, $config->getBuildArtifactPath($path, null, true));
+    }
+
+    /**
+     * @return array
+     */
+    public function developmentBuildArtifactPathProvider()
+    {
+        return array(
+            array(
+                'build/development/MyApp/resources/MyApp-all_1.css',
+                __DIR__ . '/__files/MyApp/build/development/MyApp/resources/MyApp-all_1.css'
+            ),
+            array(
+                'build/development/MyApp/resources/MyApp-all_2.css',
+                __DIR__ . '/__files/MyApp/build/development/MyApp/resources/MyApp-all_2.css'
+            ),
+            array(
+                'ext/build/ext-all-rtl-debug.js',
+                __DIR__ . '/__files/MyApp/ext/build/ext-all-rtl-debug.js'
+            ),
+            array(
+                'app/Application.js',
+                __DIR__ . '/__files/MyApp/app/Application.js'
+            ),
+            array(
+                'app.js',
+                __DIR__ . '/__files/MyApp/app.js'
+            ),
+            array(
+                'build/development/MyApp/resources/fonts/OpenSans-Regular.ttf',
+                __DIR__ . '/__files/MyApp/build/development/MyApp/resources/fonts/OpenSans-Regular.ttf'
+            ),
+            array(
+                'build/development/MyApp/resources/ext-watermark/fonts/ext-watermark.woff',
+                __DIR__ . '/__files/MyApp/build/development/MyApp/resources/ext/ext-watermark/fonts/ext-watermark.woff'
+            )
+        );
+    }
+
+    /**
+     * @dataProvider productionBuildArtifactPathProvider
+     * @param string $path
+     * @param string $expected
+     */
+    public function testGetProductionBuildArtifactPath($path, $expected)
+    {
+        $config = $this->createDefaultConfiguration();
+
+        $this->assertEquals($expected, $config->getBuildArtifactPath($path, null, false));
+    }
+
+    /**
+     * @return array
+     */
+    public function productionBuildArtifactPathProvider()
+    {
+        return array(
+            array(
+                'resources/MyApp-all_1.css',
+                __DIR__ . '/__files/MyApp/build/production/MyApp/resources/MyApp-all_1.css'
+            ),
+            array(
+                'resources/MyApp-all_2.css',
+                __DIR__ . '/__files/MyApp/build/production/MyApp/resources/MyApp-all_2.css'
+            ),
+            array(
+                'app.js',
+                __DIR__ . '/__files/MyApp/build/production/MyApp/app.js'
+            ),
+            array(
+                'resources/fonts/OpenSans-Regular.ttf',
+                __DIR__ . '/__files/MyApp/build/production/MyApp/resources/fonts/OpenSans-Regular.ttf'
+            ),
+            array(
+                'resources/ext-watermark/fonts/ext-watermark.woff',
+                __DIR__ . '/__files/MyApp/build/production/MyApp/resources/ext/ext-watermark/fonts/ext-watermark.woff'
+            )
+        );
+    }
+
+    /**
      * @return ApplicationConfiguration
      */
     protected function createDefaultConfiguration()
@@ -183,7 +273,7 @@ class ApplicationConfigurationTest extends \PHPUnit_Framework_TestCase
             $config->getManifestPath('tablet', true)
         );
         $this->assertEquals(
-           __DIR__ . '/__files/MyApp/bootstrap.js',
+            __DIR__ . '/__files/MyApp/bootstrap.js',
             $config->getMicroLoaderPath('tablet', true)
         );
 
@@ -201,7 +291,7 @@ class ApplicationConfigurationTest extends \PHPUnit_Framework_TestCase
             $config->getManifestPath(null, true)
         );
         $this->assertEquals(
-             __DIR__ . '/__files/MyApp/bootstrap.js',
+            __DIR__ . '/__files/MyApp/bootstrap.js',
             $config->getMicroLoaderPath(null, true)
         );
 
