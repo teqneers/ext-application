@@ -31,7 +31,7 @@ class StaticPathMapper implements PathMapperInterface
     /**
      * {@inheritdoc}
      */
-    public function mapPath($path)
+    public function mapPath($path, $build, $development)
     {
         if (substr($path, 0, 1) === '/') {
             return $path;

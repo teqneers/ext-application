@@ -111,6 +111,7 @@ class Application
     {
         return $this->manifestLoader->loadManifest(
             $this->getManifestFile($build),
+            $build ?: $this->getDefaultBuild(),
             $this->isDevelopment()
         );
     }

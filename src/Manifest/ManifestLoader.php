@@ -31,15 +31,20 @@ class ManifestLoader
 
     /**
      * @param \SplFileInfo $manifestFile
+     * @param string       $build
      * @param bool         $development
      * @return Manifest
      */
-    public function loadManifest(\SplFileInfo $manifestFile, $development = false)
+    public function loadManifest(\SplFileInfo $manifestFile, $build, $development = false)
     {
         $manifest = json_decode(file_get_contents($manifestFile->getPathname()), true);
 
-        $mapArray = function (array $u) {
-            $u['path'] = $this->pathMapper->mapPath($u['path']);
+        $pathMapper = function ($path) use ($build, $development) {
+            return $this->pathMapper->mapPath($path, $build, $development);
+        };
+
+        $mapArray = function (array $u) use ($pathMapper) {
+            $u['path'] = $pathMapper($u['path']);
             return $u;
         };
 
@@ -47,7 +52,7 @@ class ManifestLoader
         $manifest['css'] = array_map($mapArray, $manifest['css']);
 
         if ($development && isset($manifest['paths'])) {
-            $manifest['paths'] = array_map(array($this->pathMapper, 'mapPath'), $manifest['paths']);
+            $manifest['paths'] = array_map($pathMapper, $manifest['paths']);
         }
 
         if ($development && isset($manifest['loadOrder'])) {

@@ -24,6 +24,7 @@ class ManifestLoaderTest extends \PHPUnit_Framework_TestCase
         $loader   = new ManifestLoader(new StaticPathMapper('/path/to/app/'));
         $manifest = $loader->loadManifest(
             new \SplFileInfo(__DIR__ . '/__files/manifest.dev.json'),
+            'default',
             true
         );
         $this->assertInstanceOf('TQ\ExtJS\Application\Manifest\Manifest', $manifest);
@@ -36,6 +37,7 @@ class ManifestLoaderTest extends \PHPUnit_Framework_TestCase
         $loader   = new ManifestLoader(new StaticPathMapper('/path/to/app/'));
         $manifest = $loader->loadManifest(
             new \SplFileInfo(__DIR__ . '/__files/manifest.prod.json'),
+            'default',
             false
         );
         $this->assertInstanceOf('TQ\ExtJS\Application\Manifest\Manifest', $manifest);

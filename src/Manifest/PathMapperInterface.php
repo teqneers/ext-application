@@ -17,7 +17,9 @@ interface PathMapperInterface
 {
     /**
      * @param string $path
+     * @param string $build
+     * @param bool   $development
      * @return string
      */
-    public function mapPath($path);
+    public function mapPath($path, $build, $development);
 }

@@ -75,6 +75,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
                ->method('loadManifest')
                ->with(
                    $this->isInstanceOf('SplFileInfo'),
+                   $this->equalTo('desktop'),
                    $this->equalTo(true)
                )
                ->willReturn(new Manifest(array()));
@@ -96,6 +97,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
                ->method('loadManifest')
                ->with(
                    $this->isInstanceOf('SplFileInfo'),
+                   $this->equalTo('desktop'),
                    $this->equalTo(false)
                )
                ->willReturn(new Manifest(array()));

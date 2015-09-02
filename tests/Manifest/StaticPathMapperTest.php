@@ -20,12 +20,18 @@ class StaticPathMapperTest extends \PHPUnit_Framework_TestCase
     public function testAbsolutePath()
     {
         $pathMapper = new StaticPathMapper('/my/base/path');
-        $this->assertEquals('/my/absolute/path', $pathMapper->mapPath('/my/absolute/path'));
+        $this->assertEquals(
+            '/my/absolute/path',
+            $pathMapper->mapPath('/my/absolute/path', 'default', false)
+        );
     }
 
     public function testRelativePath()
     {
         $pathMapper = new StaticPathMapper('/my/base/path');
-        $this->assertEquals('/my/base/path/my/relative/path', $pathMapper->mapPath('my/relative/path'));
+        $this->assertEquals(
+            '/my/base/path/my/relative/path',
+            $pathMapper->mapPath('my/relative/path', 'default', false)
+        );
     }
 }
