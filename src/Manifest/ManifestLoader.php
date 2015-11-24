@@ -22,11 +22,34 @@ class ManifestLoader
     private $pathMapper;
 
     /**
+     * @var \SplPriorityQueue|callable[]
+     */
+    private $manifestMutators;
+
+    /**
+     * @var int
+     */
+    private $manifestMutatorOrder;
+
+    /**
      * @param PathMapperInterface $pathMapper
      */
     public function __construct(PathMapperInterface $pathMapper)
     {
-        $this->pathMapper = $pathMapper;
+        $this->pathMapper           = $pathMapper;
+        $this->manifestMutators     = new \SplPriorityQueue();
+        $this->manifestMutatorOrder = PHP_INT_MAX;
+    }
+
+    /**
+     * @param callable $manifestMutator
+     * @param int      $priority
+     * @return $this
+     */
+    public function addManifestMutator(callable $manifestMutator, $priority = 0)
+    {
+        $this->manifestMutators->insert($manifestMutator, [$priority, --$this->manifestMutatorOrder]);
+        return $this;
     }
 
     /**
@@ -57,6 +80,10 @@ class ManifestLoader
 
         if ($development && isset($manifest['loadOrder'])) {
             $manifest['loadOrder'] = array_map($mapArray, $manifest['loadOrder']);
+        }
+
+        foreach (clone $this->manifestMutators as $manifestMutator) {
+            $manifest = $manifestMutator($manifest, $build, $development);
         }
 
         return new Manifest($manifestFile->getPathname(), $manifest);
