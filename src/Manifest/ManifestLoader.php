@@ -74,6 +74,10 @@ class ManifestLoader
         $manifest['js']  = array_map($mapArray, $manifest['js']);
         $manifest['css'] = array_map($mapArray, $manifest['css']);
 
+        if (isset($manifest['resources'])) {
+            $manifest['resources'] = array_map($pathMapper, $manifest['resources']);
+        }
+
         if ($development && isset($manifest['paths'])) {
             $manifest['paths'] = array_map($pathMapper, $manifest['paths']);
         }

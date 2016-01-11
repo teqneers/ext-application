@@ -112,5 +112,9 @@
     },
     "id": "7381d97d-f4e9-44ef-aa2e-097045dfb87a",
     "hash": "c5e451323525c949c2b71855f890f64a1a745842",
-    "profile": ""
+    "profile": "",
+    "resources": {
+        "path": "/path/to/app/modern/resources",
+        "shared": "/path/to/app/resources"
+    }
 }

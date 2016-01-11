@@ -2681,5 +2681,9 @@
     "id": "7381d97d-f4e9-44ef-aa2e-097045dfb87a",
     "tags": [],
     "profile": "",
-    "hash": "c1e125e7d2547b1b95c32d9cc30fdd37c71b8a6e"
+    "hash": "c1e125e7d2547b1b95c32d9cc30fdd37c71b8a6e",
+    "resources": {
+        "path": "/path/to/app/build/development/MyApp/modern/resources",
+        "shared": "/path/to/app/build/development/MyApp/resources"
+    }
 }
