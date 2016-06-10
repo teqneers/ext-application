@@ -12,6 +12,7 @@ use TQ\ExtJS\Application\Application;
 use TQ\ExtJS\Application\Configuration\ApplicationConfiguration;
 use TQ\ExtJS\Application\Manifest\Manifest;
 use TQ\ExtJS\Application\Manifest\ManifestLoader;
+use TQ\ExtJS\Application\Manifest\ManifestLoaderInterface;
 
 /**
  * Class ApplicationTest
@@ -162,16 +163,13 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @return ManifestLoader|\PHPUnit_Framework_MockObject_MockObject
+     * @return ManifestLoaderInterface|\PHPUnit_Framework_MockObject_MockObject
      */
     protected function createManifestLoaderMock()
     {
         return $this->getMock(
-            'TQ\ExtJS\Application\Manifest\ManifestLoader',
-            array('loadManifest'),
-            array(),
-            '',
-            false
+            'TQ\ExtJS\Application\Manifest\ManifestLoaderInterface',
+            array('loadManifest')
         );
     }
 

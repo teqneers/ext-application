@@ -12,7 +12,7 @@ namespace TQ\ExtJS\Application;
 use TQ\ExtJS\Application\Configuration\ApplicationConfiguration;
 use TQ\ExtJS\Application\Exception\FileNotFoundException;
 use TQ\ExtJS\Application\Manifest\Manifest;
-use TQ\ExtJS\Application\Manifest\ManifestLoader;
+use TQ\ExtJS\Application\Manifest\ManifestLoaderInterface;
 
 /**
  * Class Application
@@ -27,7 +27,7 @@ class Application
     private $configuration;
 
     /**
-     * @var ManifestLoader
+     * @var ManifestLoaderInterface
      */
     protected $manifestLoader;
 
@@ -43,12 +43,12 @@ class Application
 
     /**
      * @param ApplicationConfiguration $configuration
-     * @param ManifestLoader           $manifestLoader
+     * @param ManifestLoaderInterface  $manifestLoader
      * @param string                   $environment
      */
     public function __construct(
         ApplicationConfiguration $configuration,
-        ManifestLoader $manifestLoader,
+        ManifestLoaderInterface $manifestLoader,
         $environment = 'prod'
     ) {
         $this->configuration  = $configuration;
@@ -164,7 +164,9 @@ class Application
             if (is_array($manifest) && isset($manifest['id'])) {
                 $this->applicationId = $manifest['id'];
             } else {
-                throw new \BadMethodCallException('Cannot read application id from manifest at "' . $manifestFile->getPathname() . '"');
+                throw new \BadMethodCallException(
+                    'Cannot read application id from manifest at "' . $manifestFile->getPathname() . '"'
+                );
             }
         }
         return $this->applicationId;
