@@ -14,7 +14,7 @@ namespace TQ\ExtJS\Application\Manifest;
  *
  * @package TQ\ExtJS\Application\Manifest
  */
-class ManifestLoader
+class ManifestLoader implements ManifestLoaderInterface
 {
     /**
      * @var PathMapperInterface
@@ -53,10 +53,7 @@ class ManifestLoader
     }
 
     /**
-     * @param \SplFileInfo $manifestFile
-     * @param string       $build
-     * @param bool         $development
-     * @return Manifest
+     * {@inheritdoc}
      */
     public function loadManifest(\SplFileInfo $manifestFile, $build, $development = false)
     {
