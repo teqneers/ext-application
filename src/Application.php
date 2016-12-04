@@ -40,6 +40,10 @@ class Application
      * @var string
      */
     protected $applicationId;
+    
+    protected $developerEnvironments = array(
+        'dev',
+    );
 
     /**
      * @param ApplicationConfiguration $configuration
@@ -55,13 +59,29 @@ class Application
         $this->manifestLoader = $manifestLoader;
         $this->environment    = $environment;
     }
-
+    
+    /**
+     * @return array
+     */
+    public function getDeveloperEnvironments()
+    {
+        return $this->developerEnvironments;
+    }
+    
+    /**
+     * @param array $developerEnvironments
+     */
+    public function setDeveloperEnvironments(array $developerEnvironments = null)
+    {
+        $this->developerEnvironments = $developerEnvironments;
+    }
+    
     /**
      * @return bool
      */
     public function isDevelopment()
     {
-        return $this->environment == 'dev';
+        return in_array($this->environment, $this->developerEnvironments);
     }
 
     /**

@@ -35,6 +35,22 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($app->isDevelopment());
     }
+    
+    public function testCustomDevIsDevelopment()
+    {
+        $customDev = array('localhost', 'dev');
+        $app = $this->createDefaultApplication('localhost');
+        $app->setDeveloperEnvironments($customDev);
+        $this->assertTrue($app->isDevelopment());
+    }
+    
+    public function testProdWithCustomDevIsNotDevelopment()
+    {
+        $customDev = array('localhost', 'dev');
+        $app = $this->createDefaultApplication('prod');
+        $app->setDeveloperEnvironments($customDev);
+        $this->assertFalse($app->isDevelopment());
+    }
 
     public function testDevBasePath()
     {
