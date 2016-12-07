@@ -71,7 +71,7 @@ class Application
     /**
      * @param array $developerEnvironments
      */
-    public function setDeveloperEnvironments(array $developerEnvironments = null)
+    public function setDeveloperEnvironments(array $developerEnvironments)
     {
         $this->developerEnvironments = $developerEnvironments;
     }
