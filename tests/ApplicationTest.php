@@ -183,10 +183,10 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
      */
     protected function createManifestLoaderMock()
     {
-        return $this->getMock(
-            'TQ\ExtJS\Application\Manifest\ManifestLoaderInterface',
-            array('loadManifest')
-        );
+        $mock = $this->getMockBuilder('TQ\ExtJS\Application\Manifest\ManifestLoaderInterface')
+            ->setMethods(array('loadManifest'))
+            ->getMock();
+        return $mock;
     }
 
     /**
