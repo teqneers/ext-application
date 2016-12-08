@@ -35,6 +35,22 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($app->isDevelopment());
     }
+    
+    public function testCustomDevIsDevelopment()
+    {
+        $customDev = array('localhost', 'dev');
+        $app = $this->createDefaultApplication('localhost');
+        $app->setDeveloperEnvironments($customDev);
+        $this->assertTrue($app->isDevelopment());
+    }
+    
+    public function testProdWithCustomDevIsNotDevelopment()
+    {
+        $customDev = array('localhost', 'dev');
+        $app = $this->createDefaultApplication('prod');
+        $app->setDeveloperEnvironments($customDev);
+        $this->assertFalse($app->isDevelopment());
+    }
 
     public function testDevBasePath()
     {
@@ -167,10 +183,10 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
      */
     protected function createManifestLoaderMock()
     {
-        return $this->getMock(
-            'TQ\ExtJS\Application\Manifest\ManifestLoaderInterface',
-            array('loadManifest')
-        );
+        $mock = $this->getMockBuilder('TQ\ExtJS\Application\Manifest\ManifestLoaderInterface')
+            ->setMethods(array('loadManifest'))
+            ->getMock();
+        return $mock;
     }
 
     /**
