@@ -9,6 +9,7 @@
 namespace TQ\ExtJS\Application\Tests\Configuration;
 
 
+use PHPUnit\Framework\TestCase;
 use TQ\ExtJS\Application\Configuration\ApplicationConfiguration;
 
 /**
@@ -16,7 +17,7 @@ use TQ\ExtJS\Application\Configuration\ApplicationConfiguration;
  *
  * @package TQ\ExtJS\Application\Tests\Configuration
  */
-class ApplicationConfigurationTest extends \PHPUnit_Framework_TestCase
+class ApplicationConfigurationTest extends TestCase
 {
     public function testGetDevelopmentBasePath()
     {

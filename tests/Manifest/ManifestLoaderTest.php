@@ -8,6 +8,7 @@
 
 namespace TQ\ExtJS\Application\Tests\Manifest;
 
+use PHPUnit\Framework\TestCase;
 use TQ\ExtJS\Application\Manifest\ManifestLoader;
 use TQ\ExtJS\Application\Manifest\StaticPathMapper;
 
@@ -16,7 +17,7 @@ use TQ\ExtJS\Application\Manifest\StaticPathMapper;
  *
  * @package TQ\ExtJS\Application\Tests\Manifest
  */
-class ManifestLoaderTest extends \PHPUnit_Framework_TestCase
+class ManifestLoaderTest extends TestCase
 {
 
     public function testLoadDevelopmentManifest()

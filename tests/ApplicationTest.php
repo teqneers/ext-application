@@ -8,6 +8,7 @@
 
 namespace TQ\ExtJS\Application\Tests;
 
+use PHPUnit\Framework\TestCase;
 use TQ\ExtJS\Application\Application;
 use TQ\ExtJS\Application\Configuration\ApplicationConfiguration;
 use TQ\ExtJS\Application\Manifest\Manifest;
@@ -19,7 +20,7 @@ use TQ\ExtJS\Application\Manifest\ManifestLoaderInterface;
  *
  * @package TQ\ExtJS\Application\Tests
  */
-class ApplicationTest extends \PHPUnit_Framework_TestCase
+class ApplicationTest extends TestCase
 {
 
     public function testProdIsNotDevelopment()
@@ -134,7 +135,8 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($app->hasAppCache());
 
-        $this->setExpectedException('TQ\ExtJS\Application\Exception\FileNotFoundException', 'File "" not found');
+        $this->expectException('TQ\ExtJS\Application\Exception\FileNotFoundException');
+        $this->expectExceptionMessage('File "" not found');
         $this->assertNull($app->getAppCacheFile());
     }
 
