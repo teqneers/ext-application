@@ -8,7 +8,7 @@ jobs:
       fail-fast: false
       matrix:
         operating-system: [ 'ubuntu-latest', 'ubuntu-20.04' ]
-        php-versions: [ '7.4', '8.0', '8.1' ]
+        php-version: [ '7.4', '8.0', '8.1' ]
 
     runs-on: ${{ matrix.operating-system }}
 
@@ -18,7 +18,7 @@ jobs:
       - name: Setup PHP with composer and extensions
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php-versions }}
+          php-version: ${{ matrix.php-version }}
           extensions: xdebug, json, intl, mbstring, apcu, zip
           tools: composer:v2
           coverage: xdebug
