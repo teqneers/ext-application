@@ -5,12 +5,12 @@ cd "${SCRIPT_PATH}" || exit 2
 
 export DOCKER_BUILDKIT=1
 
-VERSIONS=("7.2" "7.4" "8.0" "8.1")
+VERSIONS=("7.4" "8.0" "8.1")
 
 for version in "${VERSIONS[@]}"; do
-  docker build \
-    -f ./Dockerfile \
-    --build-arg "PHP_IMAGE=php:${version}-cli" \
-    --tag "teqneers/runtime/php:${version}" \
-    .
+    docker build \
+        -f ./Dockerfile \
+        --build-arg "PHP_IMAGE=php:${version}-cli" \
+        --tag "teqneers/runtime/php:${version}" \
+        .
 done
