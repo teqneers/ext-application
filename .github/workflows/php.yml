@@ -5,6 +5,7 @@ on: [ push ]
 jobs:
   build:
     strategy:
+      fail-fast: false
       matrix:
         operating-system: [ 'ubuntu-latest', 'ubuntu-20.04' ]
         php-versions: [ '7.4', '8.0', '8.1' ]
