@@ -1,25 +1,24 @@
 # ext-application
+
 A base component to integrate Sencha Ext JS into a PHP application
 
-[![Build Status](https://travis-ci.org/teqneers/ext-application.svg?branch=master)](https://travis-ci.org/teqneers/ext-application)
-[![Code Coverage](https://scrutinizer-ci.com/g/teqneers/ext-application/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/teqneers/ext-application/?branch=master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/teqneers/ext-application/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/teqneers/ext-application/?branch=master)
+[![Build Status](https://github.com/teqneers/ext-application/actions/workflows/test.yml/badge.svg)](https://github.com/teqneers/ext-application/actions/workflows/test.yml)
 [![Dependency Status](https://www.versioneye.com/user/projects/55b4ba9e643533001c000582/badge.svg?style=flat)](https://www.versioneye.com/user/projects/55b4ba9e643533001c000582)
 
 ## Introduction
 
 This library provides a simple abstraction around the different requirements when running Sencha Ext JS 6
-(even though 5 should work as well) applications from a development and a production context using
-server generated pages. Development and production builds use different source trees to serve application
-files from. This process is based on a so-called [manifest and a Javascript micro-loader](http://docs.sencha.com/cmd/6.x/microloader.html).
-To make sure this process works seamlessly with server generated pages and routing, the library hooks into the
-manifest generation and dynamically modifies the manifest based on the required environment and context.
+(even though 5 should work as well) applications from a development and a production context using server generated
+pages. Development and production builds use different source trees to serve application files from. This process is
+based on a so-called [manifest and a Javascript micro-loader](http://docs.sencha.com/cmd/6.x/microloader.html). To make
+sure this process works seamlessly with server generated pages and routing, the library hooks into the manifest
+generation and dynamically modifies the manifest based on the required environment and context.
 
-Currently this library is only used as the foundation of [teqneers/ext-application-bundle](https://github.com/teqneers/ext-application-bundle),
-a Symfony 2 bundle that integrates Ext JS into a Symfony 2 based application. We have not tried to use the library
-as a stand-alone component or in any other context than a Symfony 2 environment, so the following is only how it should
-work theoretically without the bundle. We'd appreciate any help and contribution to make the library more useful outside
-the bundle.
+Currently this library is only used as the foundation
+of [teqneers/ext-application-bundle](https://github.com/teqneers/ext-application-bundle), a Symfony bundle that
+integrates Ext JS into a Symfony based application. We have not tried to use the library as a stand-alone component or
+in any other context than a Symfony environment, so the following is only how it should work theoretically without the
+bundle. We'd appreciate any help and contribution to make the library more useful outside the bundle.
 
 ## Installation
 
@@ -79,30 +78,25 @@ $manifest    = $application->getManifest('/htdocs'); // returns a \TQ\ExtJS\Appl
 echo $manifest; // outputs the manifest
 ```
 
-When running the application in development mode, you have to make sure that your web server's document root is one level
-up from the (regular) public web-facing directory so that the web server can serve files from the Ext JS application
-workspace as well.
+When running the application in development mode, you have to make sure that your web server's document root is one
+level up from the (regular) public web-facing directory so that the web server can serve files from the Ext JS
+application workspace as well.
 
 ## License
 
 The MIT License (MIT)
 
-Copyright (c) 2015 TEQneers GmbH & Co. KG
+Copyright (c) 2021 TEQneers GmbH & Co. KG
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
+rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit
+persons to whom the Software is furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the
+Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
