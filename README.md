@@ -3,7 +3,6 @@
 A base component to integrate Sencha Ext JS into a PHP application
 
 [![Build Status](https://github.com/teqneers/ext-application/actions/workflows/php.yml/badge.svg)](https://github.com/teqneers/ext-application/actions/workflows/php.yml)
-[![Dependency Status](https://www.versioneye.com/user/projects/55b4ba9e643533001c000582/badge.svg?style=flat)](https://www.versioneye.com/user/projects/55b4ba9e643533001c000582)
 
 ## Introduction
 
